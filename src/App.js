@@ -18,26 +18,36 @@ class App extends Component {
     super(props);
     this.state = { 
       input: '',
+      imageUrl: '',
+      box: {},
     }
   }
-  
 
-  onInputChange = (event) => {
-    console.log(event.target.value);
+  calculateFaceLocation = (data) => {
+    const recognizedFace = data.outputs[0].data.regions[0].region_info.bounding_box
+    const image = document.querySelector("#inputImage")
+    const width = Number(image.width)
+    const height = Number(image.height)
+    return {
+      leftCol: recognizedFace.left_col * width,
+      topRow: recognizedFace.top_row * height,
+      rightCol: width - (recognizedFace.right_col * width),
+      bottomRow: height - (recognizedFace.bottom_row * height),
+    }
   }
 
-  onButtonSubmit = () => {
-    console.log('click');
-    app.models.predict("a403429f2ddf4b49b307e318f00e528b","https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/03/GettyImages-1092658864_hero-1024x575.jpg?w=1155&h=1528")
-    .then (
-      function(response) {
-        console.log(response);
-      },
-      function (error) {
-        console.log(error);
-      }
-    )
+  onInputChange = (event) => {
+    this.setState({ input: event.target.value });
+  }
 
+  onButtonSubmit = (input) => {
+    this.setState({imageUrl: this.state.input})
+    app.models.predict(
+      "a403429f2ddf4b49b307e318f00e528b",
+      this.state.input
+      )
+    .then (response => this.calculateFaceLocation(response))
+    .catch(error => console.log(error))
   }
 
   render() { 
@@ -47,7 +57,7 @@ class App extends Component {
         <Logo />
         <Rank />
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit= {this.onButtonSubmit}/>
-        <FaceRecognition />
+        <FaceRecognition imageUrl = { this.state.imageUrl }/>
       </div> 
     );
   }
