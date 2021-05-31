@@ -25,15 +25,21 @@ class App extends Component {
 
   calculateFaceLocation = (data) => {
     const recognizedFace = data.outputs[0].data.regions[0].region_info.bounding_box
+    console.log(recognizedFace);
     const image = document.querySelector("#inputImage")
     const width = Number(image.width)
     const height = Number(image.height)
+    console.log('widht', width, 'height', height);
     return {
       leftCol: recognizedFace.left_col * width,
       topRow: recognizedFace.top_row * height,
       rightCol: width - (recognizedFace.right_col * width),
       bottomRow: height - (recognizedFace.bottom_row * height),
     }
+  }
+
+  displayBoundingBox = (box) => {
+    this.setState({box: box})
   }
 
   onInputChange = (event) => {
@@ -46,7 +52,7 @@ class App extends Component {
       "a403429f2ddf4b49b307e318f00e528b",
       this.state.input
       )
-    .then (response => this.calculateFaceLocation(response))
+    .then (response => this.displayBoundingBox(this.calculateFaceLocation(response)))
     .catch(error => console.log(error))
   }
 
@@ -57,7 +63,7 @@ class App extends Component {
         <Logo />
         <Rank />
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit= {this.onButtonSubmit}/>
-        <FaceRecognition imageUrl = { this.state.imageUrl }/>
+        <FaceRecognition box={ this.state.box } imageUrl={ this.state.imageUrl }/>
       </div> 
     );
   }

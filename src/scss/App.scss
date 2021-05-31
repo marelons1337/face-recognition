@@ -115,7 +115,19 @@ body {
     text-align: center;
     font-size: 1.8em;
     img {
-        max-width: 400px;
+        width: 400px;
+        height: auto;
+    }
+    .box-wrapper{
+        position: relative;
+        .bounding-box {
+            position: absolute;
+            box-shadow: 0 0 0 3px #149df2 inset;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            cursor: pointer;
+        }
     }
 }
 .rank-box {
