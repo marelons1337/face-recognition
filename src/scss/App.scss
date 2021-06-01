@@ -5,6 +5,35 @@ $middle: #a8dadc;
 $neutral: #f1faee;
 $accent: #e63946;
 
+//mixins
+@mixin input {
+    margin-top: 10px;
+    padding: 12px;
+    border: 2px solid $dark;
+    background-color: $middle;
+    border-radius: 4px;
+    &:hover {
+        border: 2px solid $lighter;
+    }   
+}
+
+@mixin button { 
+    background-color: $dark;
+    color: $neutral;
+    border: 1px solid $dark;
+    border-radius: 10px;
+    padding: 5px 15px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    font-size: 1.3em;
+    &:hover {
+        background-color: $middle;
+        color: $dark;
+        cursor: pointer;
+    }
+}
+
 body {
     background-color: $neutral;
 }
@@ -30,6 +59,7 @@ body {
         }
     }
 }
+
 .logo-div {
     grid-column: 2/3;
     grid-row: 2/3;
@@ -53,6 +83,7 @@ body {
         font-size: 2.1em;
     }
 }
+
 @keyframes gradient {
     0% {
         background-position: 0% 50%;
@@ -80,33 +111,15 @@ body {
         font-size: 1rem;
     }
     #link-box {
+        @include input;
+        margin-bottom: 10px;
         width: 100%;
-        margin: 10px;
-        padding: 12px;
-        border: 2px solid $dark;
-        background-color: $middle;
-        border-radius: 4px;
-        &:hover {
-            border: 2px solid $lighter;
-        }
     }
     #submit-link-box {
-        background-color: $dark;
-        color: $neutral;
-        border: 1px solid $dark;
-        border-radius: 10px;
-        padding: 5px 15px;
-        text-align: center;
-        display: block;
-        margin: 0 auto;
-        font-size: 1.3em;
-        &:hover {
-            background-color: $middle;
-            color: $dark;
-            cursor: pointer;
-        }
+        @include button;
     }
 }
+
 .face-box {
     padding-top: 30px;
     grid-column: 2/3;
@@ -130,6 +143,7 @@ body {
         }
     }
 }
+
 .rank-box {
     grid-column: 2/3;
     grid-row: 3/4;
@@ -143,5 +157,27 @@ body {
     border-radius: 10px;
     span {
         color: $accent;
+    }
+}
+
+.login-container {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    justify-self: center;
+    padding: 30px;
+    label {
+        padding: 5px;
+        display: block;
+        text-align: center;
+    }
+    .login-block {
+        padding: 2px 0;
+    }
+    input {
+        @include input;
+        margin-bottom: 10px;
+    }
+    button {
+        @include button;
     }
 }

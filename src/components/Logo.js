@@ -1,5 +1,5 @@
 import React from 'react';
-import face from './face.png'
+import face from './Logo/face.png'
 
 const Logo = () => {
     return ( 

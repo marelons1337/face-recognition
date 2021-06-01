@@ -2,11 +2,12 @@ import './dist/css/App.css';
 import 'animate.css';
 import Clarifai from 'clarifai';
 import React, { Component } from 'react';
-import Navigation from './components/Navigation/Navigation'
-import Logo from './components/Logo/Logo'
-import Rank from './components/Rank/Rank'
-import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm'
-import FaceRecognition from './components/FaceRecognition/FaceRecognition'
+import Navigation from './components/Navigation'
+import Logo from './components/Logo'
+import Rank from './components/Rank'
+import ImageLinkForm from './components/ImageLinkForm'
+import FaceRecognition from './components/FaceRecognition'
+import SignIn from './components/SignIn'
 
 
 const app = new Clarifai.App({
@@ -25,11 +26,9 @@ class App extends Component {
 
   calculateFaceLocation = (data) => {
     const recognizedFace = data.outputs[0].data.regions[0].region_info.bounding_box
-    console.log(recognizedFace);
     const image = document.querySelector("#inputImage")
     const width = Number(image.width)
     const height = Number(image.height)
-    console.log('widht', width, 'height', height);
     return {
       leftCol: recognizedFace.left_col * width,
       topRow: recognizedFace.top_row * height,
@@ -60,6 +59,7 @@ class App extends Component {
     return ( 
       <div className="App">
         <Navigation />
+        <SignIn />
         <Logo />
         <Rank />
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit= {this.onButtonSubmit}/>
