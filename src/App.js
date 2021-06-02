@@ -8,6 +8,7 @@ import Rank from './components/Rank'
 import ImageLinkForm from './components/ImageLinkForm'
 import FaceRecognition from './components/FaceRecognition'
 import SignIn from './components/SignIn'
+import Register from './components/Register'
 
 
 const app = new Clarifai.App({
@@ -21,6 +22,7 @@ class App extends Component {
       input: '',
       imageUrl: '',
       box: {},
+      route: 'signin'
     }
   }
 
@@ -45,7 +47,7 @@ class App extends Component {
     this.setState({ input: event.target.value });
   }
 
-  onButtonSubmit = (input) => {
+  onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input})
     app.models.predict(
       "a403429f2ddf4b49b307e318f00e528b",
@@ -55,16 +57,28 @@ class App extends Component {
     .catch(error => console.log(error))
   }
 
+  onRouteChange = (givenRoute) => {
+    this.setState({route: givenRoute});
+  }
+
   render() { 
     return ( 
       <div className="App">
-        <Navigation />
-        <SignIn />
-        <Logo />
-        <Rank />
-        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit= {this.onButtonSubmit}/>
-        <FaceRecognition box={ this.state.box } imageUrl={ this.state.imageUrl }/>
-      </div> 
+        <Navigation onRouteChange={ this.onRouteChange } />
+        { this.state.route==='home' 
+        ? <div className='main-div-center'>
+            <Logo />
+            <Rank />
+            <ImageLinkForm onInputChange={ this.onInputChange } onButtonSubmit= { this.onButtonSubmit }/>
+            <FaceRecognition box={ this.state.box } imageUrl={ this.state.imageUrl }/>
+          </div>
+        : ( 
+          this.state.route==='signin' 
+          ? <SignIn onRouteChange={ this.onRouteChange } />
+          : <Register onRouteChange={ this.onRouteChange } />
+          ) 
+        }
+      </div>
     );
   }
 }

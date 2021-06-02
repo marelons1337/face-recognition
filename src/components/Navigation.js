@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Navigation = () => {
+const Navigation = ({ onRouteChange }) => {
     return (
         <nav className='nav-main animate__animated animate__fadeInDown'>
-            <a href="/">Sign Out</a>
+            <a onClick={ () => onRouteChange('signin') } href="/">Sign Out</a>
         </nav>
     )
 }
