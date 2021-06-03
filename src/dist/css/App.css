@@ -12,10 +12,10 @@ body {
   top: 0;
   right: 0;
   padding: 20px; }
-  .nav-main a {
+  .nav-main p {
     color: #1d3557;
     text-decoration: none; }
-    .nav-main a:hover {
+    .nav-main p:hover {
       color: #e63946;
       cursor: pointer;
       position: relative;

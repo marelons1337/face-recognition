@@ -17,7 +17,7 @@ const SignIn = ({ onRouteChange }) => {
                     <button onClick={ () => onRouteChange('home') }type="submit">Login</button>
                 </div>
                 <div>
-                    <a href="#" onClick={ () => onRouteChange('register') }>Don't have an account yet? Register. </a>
+                    <p  onClick={ () => onRouteChange('register') }>Don't have an account yet? Register. </p>
                 </div>
             </form>
         </div>
