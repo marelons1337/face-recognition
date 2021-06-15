@@ -9,6 +9,7 @@ import ImageLinkForm from './components/ImageLinkForm'
 import FaceRecognition from './components/FaceRecognition'
 import SignIn from './components/SignIn'
 import Register from './components/Register'
+import { data } from 'autoprefixer';
 
 
 const app = new Clarifai.App({
@@ -25,6 +26,12 @@ class App extends Component {
       route: 'signin',
       isSignedIn: false
     }
+  }
+
+  componentDidMount() {
+    fetch('http://127.0.0.1:3000/')
+    .then(response => response.json())
+    .then(console.log)
   }
 
   calculateFaceLocation = (data) => {
