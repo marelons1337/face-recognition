@@ -8,14 +8,24 @@ class SignIn extends Component {
             signInPassword: '',
         }
     }
+
     onEmailChange = (event) => {
         this.setState({ signInEmail: event.target.value})
     }
+
     onPasswordChange = (event) => {
         this.setState({ signInPassword: event.target.value})
     }
+
     onSubmitSignIn = () => {
-        console.log(this.state);
+        fetch('http://localhost:3000/signin', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: this.state.signInEmail,
+                password: this.state.signInPassword
+            })
+        })
         this.props.onRouteChange('home')
     }
 
@@ -28,17 +38,17 @@ class SignIn extends Component {
                 <form>
                     <div className='form-block'>
                         <label htmlFor="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="uname" required />
+                        <input onChange={ this.onEmailChange } type="text" placeholder="Enter Email" name="uname" required />
                     </div>
                         <br />
                     <div className='form-block'>
                         <label htmlFor="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required />
+                        <input onChange={ this.onPasswordChange } type="password" placeholder="Enter Password" name="psw" required />
                         <br />
-                        <button onClick={ this.onSubmitSignIn() }type="submit">Login</button>
+                        <button onClick={ this.onSubmitSignIn }type="submit">Login</button>
                     </div>
                     <div>
-                        <p  onClick={ () => onRouteChange('register') }>Don't have an account yet? Register. </p>
+                        <p onClick={ () => onRouteChange('register') }>Don't have an account yet? Register. </p>
                     </div>
                 </form>
             </div>

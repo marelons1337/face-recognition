@@ -27,13 +27,7 @@ class App extends Component {
       isSignedIn: false
     }
   }
-
-  componentDidMount() {
-    fetch('http://127.0.0.1:3000/')
-    .then(response => response.json())
-    .then(console.log)
-  }
-
+  
   calculateFaceLocation = (data) => {
     const recognizedFace = data.outputs[0].data.regions[0].region_info.bounding_box
     const image = document.querySelector("#inputImage")
