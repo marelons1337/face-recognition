@@ -1,3 +1,4 @@
+import { data } from 'autoprefixer';
 import React, { Component } from 'react';
 
 class SignIn extends Component {
@@ -26,7 +27,12 @@ class SignIn extends Component {
                 password: this.state.signInPassword
             })
         })
-        this.props.onRouteChange('home')
+        .then(response => response.json())
+        .then(data => {
+            if(data === 'loggedin'){
+                this.props.onRouteChange('home')
+            }
+        })
     }
 
     render() {
