@@ -9,6 +9,7 @@ import ImageLinkForm from './components/ImageLinkForm'
 import FaceRecognition from './components/FaceRecognition'
 import SignIn from './components/SignIn'
 import Register from './components/Register'
+import { data } from 'autoprefixer';
 
 
 const app = new Clarifai.App({
@@ -26,7 +27,7 @@ class App extends Component {
       isSignedIn: false
     }
   }
-
+  
   calculateFaceLocation = (data) => {
     const recognizedFace = data.outputs[0].data.regions[0].region_info.bounding_box
     const image = document.querySelector("#inputImage")
