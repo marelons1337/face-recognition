@@ -22,7 +22,7 @@ class Register extends Component {
         this.setState({ password: event.target.value})
     }
 
-    onSubmitSignIn = () => {
+    onSubmitRegister = () => {
         fetch('http://localhost:3000/register', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
@@ -59,7 +59,7 @@ class Register extends Component {
                     <label htmlFor="psw"><b>Password</b></label>
                     <input type="password" placeholder="Create Password" name="psw" onChange={this.onPasswordChange} required />
                     <br />
-                    <button onClick={ this.onSubmitSignIn }type="submit">Register</button>
+                    <button onClick={ this.onSubmitRegister }type="submit">Register</button>
                 </div>
             </div>
         );

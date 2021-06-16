@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Rank = () => {
+const Rank = ({ name, entries }) => {
     return ( 
         <div className="rank-box">
-            <p>Hi Rafal, you have currently checked <span>#</span> images</p>
+            <p>Hi {name}, you have currently checked <span>{entries}</span> images</p>
         </div>
      );
 }
