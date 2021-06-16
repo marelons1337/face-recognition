@@ -41,22 +41,20 @@ class SignIn extends Component {
         return ( 
             <div className="login-container">
             <h1>Sign In</h1>
-                <form>
-                    <div className='form-block'>
-                        <label htmlFor="uname"><b>Username</b></label>
-                        <input onChange={ this.onEmailChange } type="text" placeholder="Enter Email" name="uname" required />
-                    </div>
-                        <br />
-                    <div className='form-block'>
-                        <label htmlFor="psw"><b>Password</b></label>
-                        <input onChange={ this.onPasswordChange } type="password" placeholder="Enter Password" name="psw" required />
-                        <br />
-                        <button onClick={ this.onSubmitSignIn }type="submit">Login</button>
-                    </div>
-                    <div>
-                        <p onClick={ () => onRouteChange('register') }>Don't have an account yet? Register. </p>
-                    </div>
-                </form>
+                <div className='form-block'>
+                    <label htmlFor="uname"><b>Username</b></label>
+                    <input onChange={ this.onEmailChange } type="text" placeholder="Enter Email" name="uname" required />
+                </div>
+                    <br />
+                <div className='form-block'>
+                    <label htmlFor="psw"><b>Password</b></label>
+                    <input onChange={ this.onPasswordChange } type="password" placeholder="Enter Password" name="psw" required />
+                    <br />
+                    <button onClick={ this.onSubmitSignIn }type="submit">Login</button>
+                </div>
+                <div>
+                    <p onClick={ () => onRouteChange('register') }>Don't have an account yet? Register. </p>
+                </div>
             </div>
          );
     }
