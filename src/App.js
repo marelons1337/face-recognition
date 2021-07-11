@@ -1,6 +1,5 @@
 import './dist/css/App.css';
 import 'animate.css';
-import Clarifai from 'clarifai';
 import React, { Component } from 'react';
 import Navigation from './components/Navigation'
 import Logo from './components/Logo'
@@ -9,30 +8,28 @@ import ImageLinkForm from './components/ImageLinkForm'
 import FaceRecognition from './components/FaceRecognition'
 import SignIn from './components/SignIn'
 import Register from './components/Register'
-import { data } from 'autoprefixer';
 
 
-const app = new Clarifai.App({
-  apiKey: '503f6a53e1e34c548ab59411cc49bf2e'
- });
+
+const initialState = {
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    "id": "",
+    "name": "",
+    "email": "",
+    "entries": "0",
+    "created": ""
+  }
+}
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      input: '',
-      imageUrl: '',
-      box: {},
-      route: 'signin',
-      isSignedIn: false,
-      user: {
-        "id": "",
-        "name": "",
-        "email": "",
-        "entries": "0",
-        "created": ""
-      }
-    }
+    this.state = initialState;
   }
 
   loadUser = (data) => {
@@ -69,18 +66,23 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input})
-    app.models.predict(
-      "a403429f2ddf4b49b307e318f00e528b",
-      this.state.input
-      )
+    fetch('https://floating-waters-55224.herokuapp.com/imageurl', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
+    .then(response => response.json())
     .then (response => {
-      fetch('http://localhost:3000/image', {
+      fetch('https://floating-waters-55224.herokuapp.com/image', {
         method: 'put',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: this.state.user.id
         })
       })
+      .catch(console.log)
       .then(response=> response.json())
       .then(count=> {
         this.setState(Object.assign(this.state.user, {entries:count}))
@@ -91,7 +93,7 @@ class App extends Component {
 
   onRouteChange = (givenRoute) => {
     if (givenRoute === 'signout') {
-      this.setState({isSignedIn: false})
+      this.setState(initialState)
     }else if (givenRoute === 'home') {
       this.setState({isSignedIn: true})
     }

@@ -23,7 +23,7 @@ class Register extends Component {
     }
 
     onSubmitRegister = () => {
-        fetch('http://localhost:3000/register', {
+        fetch('https://floating-waters-55224.herokuapp.com/register', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -34,7 +34,7 @@ class Register extends Component {
         })
         .then(response => response.json())
         .then(user => {
-            if(user){
+            if(user.id){
                 this.props.loadUser(user);
                 this.props.onRouteChange('home')
             }
@@ -52,7 +52,7 @@ class Register extends Component {
                     <br />
                 <div className='form-block'>
                     <label htmlFor="email"><b>Email</b></label>
-                    <input type="email" placeholder="Create Password" name="email" onChange={this.onEmailChange} required />
+                    <input type="email" placeholder="Your email" name="email" onChange={this.onEmailChange} required />
                 </div>
                     <br />
                 <div className='form-block'>
